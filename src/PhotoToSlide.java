@@ -1,15 +1,25 @@
 import java.io.*;
 import java.util.*;
 
-public class PhotoToSlide {
+
+
+
+public class PhotoToSlide {	
 	
-	
-	
-	void parse(String filename) {
-		
-		Scanner sc = new Scanner(filename);
-		while (sc.hasNext()) {
-		    System.out.println(sc.next());
+	List<Slide> slidelist = new ArrayList();
+	void parse(String filename) throws FileNotFoundException {
+		File file = new File(filename);
+		Scanner sc = new Scanner(file);
+		int photonumber = sc.nextInt();
+		for(int i=0;i<photonumber;i++) {
+			String HorV = sc.next();
+			int tagnum = sc.nextInt();
+			List<String> tags = new ArrayList();
+			for(int j=0;j<tagnum;j++) {
+				tags.add(sc.next());
+			}
+			
+			
 		}
 		sc.close();
 	}
@@ -29,7 +39,9 @@ public class PhotoToSlide {
 	
 	
 	void print(String filename) {
-		
+		for(int i=0;i<slidelist;i++) {
+			
+		}
 	}
 	
 }
