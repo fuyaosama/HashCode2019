@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scorer {
-    List<Photo> photoList;
+    List<Slide> slidelist;
 
-    public Scorer(List<Photo> photoList) {
+    public Scorer(List<Slide> slidelist) {
         // Set references to Photo
-        this.photoList = photoList;
+        this.slidelist = slidelist;
     }
 
     public int score(List<Slide> slideList) {

@@ -45,15 +45,24 @@ public class PhotoToSlide {
 		
 	}
 	void score() {
-		
+		Scorer sc = new Scorer(slidelist);
+		System.out.print(sc.score(slidelist));
 	}
 	
 	
 	
-	void print(String filename) {
-		for(int i=0;i<slidelist;i++) {
+	void print(String filename) throws IOException {
+		
+	    BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+	    writer.write(slidelist.size());
+	    writer.newLine();
+		for(int i=0;i<slidelist.size();i++) {
+			for(Integer pho : slidelist.get(i).sourcePhotos) {
+				writer.write(pho);
+			}
+			writer.newLine();
 			
 		}
+		writer.close();
 	}
-	
 }
