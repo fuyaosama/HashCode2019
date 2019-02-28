@@ -31,12 +31,14 @@ public class PhotoToSlide {
 				
 			}
 			
-			photolist.add(new Photo(tags, HorV.equals("H")));
+			photolist.add(new Photo(tags, !HorV.equals("H")));
 		}
 		sc.close();
 	}
 	void startsim() {
-		
+		arrangePhotos();
+		arrangeSlides();
+		score();
 	}
 
     /**
@@ -73,11 +75,16 @@ public class PhotoToSlide {
         }
     }
 	void arrangeSlides() {
-		
+//		Collections.sort(slidelist,(a,b)->b.tags.size()-a.tags.size());
+//		Slide slide ;
+//		for(int i=1;i<slidelist.size();i++) {
+//			slide = = slidelist.get(i-1);
+//			for(int j=0;j<)
+//		}
 	}
 	void score() {
 		Scorer sc = new Scorer(slidelist);
-		System.out.print(sc.score(slidelist));
+		System.out.println(sc.score(slidelist));
 	}
 	
 	
@@ -85,14 +92,14 @@ public class PhotoToSlide {
 	void print(String filename) throws IOException {
 		
 	    BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-	    writer.write(slidelist.size());
+	    writer.write(String.valueOf(slidelist.size()));
 	    writer.newLine();
 		for(int i=0;i<slidelist.size();i++) {
 			for(Integer pho : slidelist.get(i).sourcePhotos) {
-				writer.write(pho);
+				writer.write(String.valueOf(pho));
+				writer.write(" ");
 			}
 			writer.newLine();
-			
 		}
 		writer.close();
 	}
