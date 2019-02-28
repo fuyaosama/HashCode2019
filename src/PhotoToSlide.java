@@ -46,32 +46,36 @@ public class PhotoToSlide {
      */
     void arrangePhotos() {
 
+        PriorityQueue<Integer> vPhotoQueue = new PriorityQueue<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return photolist.get(o1).tags.size() - photolist.get(o2).tags.size();
+            }
+        });
+
         // Iterate all the photos.
-        Photo lstVPhoto = null;
-        int lstVPhotoIndex = -1;
         for(int i = 0; i < photolist.size(); i++) {
             Photo photo = photolist.get(i);
-            if(photo.mark == false) {       // Horizontal Photo
+            if (!photo.mark) {       // Horizontal Photo
                 List<Integer> srcPhotos = new ArrayList<>();
                 srcPhotos.add(i);
                 slidelist.add(new Slide(photo.tags, srcPhotos));
+            } else {      // Vertical Photo
+                vPhotoQueue.add(i);
             }
-            else {      // Vertical Photo
-                if(lstVPhotoIndex == -1) {     // Wait until collect 2 Vertical photos
-                    lstVPhoto = photo;
-                    lstVPhotoIndex = i;
-                    continue;
-                }
-                List<Integer> srcPhotos = new ArrayList<>();
-                srcPhotos.add(i);
-                srcPhotos.add(lstVPhotoIndex);
-                List<Integer> newTags = new ArrayList<>(lstVPhoto.tags);
-                newTags.addAll(photo.tags);
-                slidelist.add(new Slide(newTags, srcPhotos));
+        }
 
-                lstVPhoto = null;
-                lstVPhotoIndex = -1;
-            }
+        while(vPhotoQueue.size() > 1) {
+            int photo1 = vPhotoQueue.poll();
+            int photo2 = vPhotoQueue.poll();
+
+            List<Integer> srcPhotos = new ArrayList<>();
+            srcPhotos.add(photo1);
+            srcPhotos.add(photo2);
+            List<Integer> newTags = new ArrayList<>();
+            newTags.addAll(photolist.get(photo1).tags);
+            newTags.addAll(photolist.get(photo2).tags);
+            slidelist.add(new Slide(newTags, srcPhotos));
         }
     }
 	void arrangeSlides() {
