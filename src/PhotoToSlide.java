@@ -75,15 +75,27 @@ public class PhotoToSlide {
         }
     }
 	void arrangeSlides() {
-//		Collections.sort(slidelist,(a,b)->b.tags.size()-a.tags.size());
-//		Slide slide ;
-//		for(int i=1;i<slidelist.size();i++) {
-//			slide = = slidelist.get(i-1);
-//			for(int j=0;j<)
-//		}
+		Collections.sort(slidelist,(a,b)->b.tags.size()-a.tags.size());
+		Slide slide,comp;
+		Scorer sc  = new Scorer();
+		for(int i=1;i<slidelist.size();i++) {
+			int max = 0,pos=i;
+			slide = slidelist.get(i-1);
+			for(int j=i;j<i+1000&&j<slidelist.size();j++) {
+				comp = slidelist.get(j);
+				int temp = sc.scoretwo(slide, comp);
+				if(temp>max) {
+					max = temp;
+					pos = j;
+				}
+			}
+			comp = slidelist.get(pos);
+			slidelist.remove(pos);
+			slidelist.add(i,comp);
+		}
 	}
 	void score() {
-		Scorer sc = new Scorer(slidelist);
+		Scorer sc = new Scorer();
 		System.out.println(sc.score(slidelist));
 	}
 	

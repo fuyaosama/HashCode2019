@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scorer {
-    List<Slide> slidelist;
+    //List<Slide> slidelist;
 
-    public Scorer(List<Slide> slidelist) {
+    public Scorer() {
         // Set references to Photo
-        this.slidelist = slidelist;
+        //this.slidelist = slidelist;
     }
 
     public int score(List<Slide> slideList) {
@@ -38,5 +38,22 @@ public class Scorer {
         }
         
         return ans;
+    }
+    
+    public int scoretwo(Slide s1,Slide s2) {
+    	List<Integer> intersection = new ArrayList<>(s1.tags);
+        intersection.retainAll(s2.tags);
+
+        List<Integer> lstSlideDif = new ArrayList<>(s1.tags);
+        lstSlideDif.removeAll(intersection);
+
+        List<Integer> curSlideDif = new ArrayList<>(s2.tags);
+        curSlideDif.removeAll(intersection);
+
+        int sharedTagsCnt = intersection.size();
+        int lstSlideTagsCnt = lstSlideDif.size();
+        int curSlideTagsCnt = curSlideDif.size();
+        
+        return Math.min(sharedTagsCnt, Math.min(lstSlideTagsCnt, curSlideTagsCnt));
     }
 }
